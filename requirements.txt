@@ -1,0 +1,4 @@
+python-slugify
+pytube
+moviepy
+beautifulsoup4
