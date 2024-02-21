@@ -10,11 +10,11 @@ import moviepy.editor as mymovie
 import requests
 
 
-def download_yt_video(yt_link, download_path):
+def download_yt_video(yt_link, download_path, res="1080p"):
     yt = YouTube(yt_link)
     filenamee = slugify(YouTube(yt_link).title)
-    video = yt.streams.filter(adaptive=True, res="1080p").first()
-    size = yt.streams.filter(adaptive=True, res="1080p").first().filesize
+    video = yt.streams.filter(adaptive=True, res=res).first()
+    size = yt.streams.filter(adaptive=True, res=res).first().filesize
     print(f"File Size: {round(size* 0.000001, 2)} MB")
     print("Downloading video-----")
     try:
@@ -84,7 +84,10 @@ while "This video isn't available anymore" in r.text:
     print("Invalid link provided")
     yt_link = input("Provide YT link: ")
     r = requests.get(yt_link) # random video id
-# converting the text 
+# converting the text
+res = "L"
+while not(res == "1080p" or res == "720p" or res == "480p" or res == "360p" or res == "240p" or res == "144p"):
+    res = input("Enter video resolution to download(1080p/720p/480p/360p/240p/144p):") 
 s = BeautifulSoup(r.text, "html.parser") 
     
 # finding meta info for title 
@@ -96,7 +99,7 @@ title = title.replace(" - YouTube", "")
 title = title.replace("/", "")
 title = title.replace("\\", "")
 print(title)
-flag, filename = download_yt_video(yt_link, download_path)
+flag, filename = download_yt_video(yt_link, download_path, res=res)
 if flag:
     flag1, filename = download_yt_audio(yt_link, download_path)
     if flag1:
