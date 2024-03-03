@@ -98,6 +98,7 @@ for title1 in s.find_all('title'):
 title = title.replace(" - YouTube", "")
 title = title.replace("/", "")
 title = title.replace("\\", "")
+title = title.replace("|", "")
 print(title)
 flag, filename = download_yt_video(yt_link, download_path, res=res)
 if flag:
