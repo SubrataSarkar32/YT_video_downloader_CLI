@@ -1,5 +1,6 @@
 # CLI YT video downloader
 import os
+import re
 from moviepy.editor import *
 from slugify import slugify
 from pytube import YouTube
@@ -45,7 +46,7 @@ def download_yt_audio(yt_link, download_path):
 
 
 def combine_audio_video(yt_link, download_path, title):
-    filename1 = YouTube(yt_link).title 
+    filename1 = YouTube(yt_link).title
     print(filename1)
     filenamee = slugify(filename1)
     videofolder = os.path.join(download_path, filenamee+".mp4")
@@ -96,9 +97,15 @@ for title1 in s.find_all('title'):
     title = title1.get_text()
     break
 title = title.replace(" - YouTube", "")
-title = title.replace("/", "")
-title = title.replace("\\", "")
-title = title.replace("|", "")
+title = title.replace("/", " ")
+title = title.replace("\\", " ")
+title = title.replace("|", " ")
+title = title.replace("?", " ")
+title = title.replace("*", " ")
+title = title.replace(":", " ")
+title = title.replace("<", " ")
+title = title.replace(">", " ")
+title = title.replace('"', " ")
 print(title)
 flag, filename = download_yt_video(yt_link, download_path, res=res)
 if flag:

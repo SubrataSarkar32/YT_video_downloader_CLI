@@ -1,4 +1,4 @@
 python-slugify
-pytube
+pytube2
 moviepy
 beautifulsoup4
